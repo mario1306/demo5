@@ -13,6 +13,7 @@ public class Mkorder {
   private String name;
 
   @OneToMany
+  @JoinColumn(name = "line")
   private Set<Orderline> orderlines = new HashSet<>();
 
   private Number total;
