@@ -1,30 +1,28 @@
 package org.fastbit.demo5.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @Entity
-public class Orderline {
+public class OrderLine {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-
-  private String name;
 
   @OneToOne
   private Product product;
 
   private Integer quantity;
-  private Integer total;
+  private BigDecimal total;
 
-  public Orderline() {
+  public OrderLine() {
   }
 
-  public Orderline(String name, Product product, Integer quantity, Integer total) {
-    this.name = name;
+  public OrderLine(Product product, Integer quantity) {
     this.product = product;
     this.quantity = quantity;
-    this.total = total;
+    this.total = BigDecimal.valueOf(product.getPrice().doubleValue() * quantity);
   }
 
   public Long getId() {
@@ -33,14 +31,6 @@ public class Orderline {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public Product getProduct() {
@@ -59,11 +49,11 @@ public class Orderline {
     this.quantity = quantity;
   }
 
-  public Integer getTotal() {
+  public BigDecimal getTotal() {
     return total;
   }
 
-  public void setTotal(Integer total) {
+  public void setTotal(BigDecimal total) {
     this.total = total;
   }
 }
