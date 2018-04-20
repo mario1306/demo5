@@ -6,20 +6,18 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hibernate.annotations.CascadeType;
 import org.springframework.core.annotation.OrderUtils;
 
 @Entity
 public class OrderHead {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
 
-  @OneToMany
-  @Cascade(CascadeType.ALL)
-  @JoinColumn(name = "line")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+  //@JoinColumn(name = "line")  // product_id otherwise
   private Set<OrderLine> orderLines = new HashSet<>();
 
   private Double total;
@@ -67,6 +65,11 @@ public class OrderHead {
 
   public void setOrderLines(Set<OrderLine> orderlines) {
     this.orderLines = orderlines;
+  }
+
+  public void addOrderLine(OrderLine line) {
+    line.setOrder(this);
+    this.orderLines.add(line);
   }
 
   public Double getTotal() {

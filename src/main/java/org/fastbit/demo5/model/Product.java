@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 public class Product {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
@@ -21,6 +21,7 @@ public class Product {
 
   public Product(String name, String price) {
     this.name = name;
+    //this.price = BigDecimal.valueOf(0);
     this.price = new BigDecimal(price);
   }
 

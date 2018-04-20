@@ -7,8 +7,12 @@ import java.math.BigDecimal;
 @Entity
 public class OrderLine {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @ManyToOne
+  @JoinColumn(name = "order_id")
+  private OrderHead order;
 
   @OneToOne
   private Product product;
@@ -31,6 +35,14 @@ public class OrderLine {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public OrderHead getOrder() {
+    return order;
+  }
+
+  public void setOrder(OrderHead order) {
+    this.order = order;
   }
 
   public Product getProduct() {

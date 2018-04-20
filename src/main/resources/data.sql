@@ -1,0 +1,1 @@
+insert into product (name) values ('from import.sql');

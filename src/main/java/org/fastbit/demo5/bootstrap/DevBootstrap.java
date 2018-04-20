@@ -30,14 +30,16 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
   }
 
   private void initData() {
+    // 1) Product
     Product bananas = new Product("bananas", "2.50");
     productRepository.save(bananas);
 
     Product oranges = new Product("oranges", "3.50");
     productRepository.save(oranges);
 
-    OrderLine line1 = new OrderLine(bananas, 3);
-    OrderLine line2 = new OrderLine(oranges, 2);
+    // 2) Order & OrderLines
+//    OrderLine line1 = new OrderLine(bananas, 3);
+//    OrderLine line2 = new OrderLine(oranges, 2);
 
     // OK
 //    Set<OrderLine> lines = new HashSet<>();
@@ -45,13 +47,18 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 //    lines.add(line2);
 //    OrderHead order = new OrderHead("order 1", lines);
 
-    // another approach
     OrderHead order2 = new OrderHead("order 2");
-//    Set<OrderLine> lines = order2.getOrderLines();
-    order2.getOrderLines().add(line1);
-    order2.getOrderLines().add(line2);
-    order2.OrderUpdate();
+    // another approach
 
+    // a)
+//    order2.getOrderLines().add(new OrderLine(bananas, 3));
+//    order2.getOrderLines().add(new OrderLine(oranges, 2));
+
+    // b) addOrderLine() added
+    order2.addOrderLine(new OrderLine(bananas, 3));
+    order2.addOrderLine(new OrderLine(oranges, 2));
+
+    order2.OrderUpdate();
     orderHeadRepository.save(order2);
 
   }
